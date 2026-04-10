@@ -15,8 +15,9 @@ function generate() {
     const calendar = document.getElementById("calendar");
     calendar.innerHTML = "";
 
-    // 🧠 WEEK OFFSET (key part)
     let today = new Date();
+
+    // 🔥 WEEK OFFSET (main fix)
     let weekOffset = Math.floor(today.getDate() / 7) % n;
 
     // Today highlight
@@ -51,27 +52,19 @@ function showDetails(day, people, tasks, weekOffset) {
     const n = people.length;
     let result = `<h2>${days[day]}</h2>`;
 
-    // Tasks
+    // 🔥 SHIFTED TASK ASSIGNMENT
     for (let t = 0; t < tasks.length; t++) {
-        let personIndex = (day + t) % n;
+        let personIndex = (day + t + weekOffset) % n;
         result += `<p>${tasks[t]} → <span class="p${personIndex}">${people[personIndex]}</span></p>`;
     }
 
-    // Rest
-    let restIndex = (day + tasks.length) % n;
+    // 🔥 SHIFTED REST
+    let restIndex = (day + tasks.length + weekOffset) % n;
     result += `<p>Rest → <span class="p${restIndex}">${people[restIndex]}</span></p>`;
 
-    // ✅ UPDATED DUST LOGIC
+    // ✅ Dust = Rest person
     if ((day + 1) % 2 === 0) {
-
-        let dustIndex = (weekOffset + Math.floor(day / 2)) % n;
-
-        // Avoid rest person
-        if (dustIndex === restIndex) {
-            dustIndex = (dustIndex + 1) % n;
-        }
-
-        result += `<p>🗑️ Dust → <span class="p${dustIndex}">${people[dustIndex]}</span></p>`;
+        result += `<p>🗑️ Dust → <span class="p${restIndex}">${people[restIndex]}</span></p>`;
     }
 
     document.getElementById("details").innerHTML = result;

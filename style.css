@@ -1,0 +1,23 @@
+body {
+    font-family: Arial;
+    text-align: center;
+    background: #f5f5f5;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    padding: 20px;
+}
+
+.day {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px gray;
+}
+.Akhi { color: red; }
+.Meghana { color: blue; }
+.Nadhiya { color: green; }
+.Sara { color: purple; }

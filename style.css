@@ -58,7 +58,9 @@ button {
 .selected {
     border: 3px solid orange;
 }
-
+.week-control {
+    margin: 15px;
+}
 /* Person colors */
 .p0 { color: #e74c3c; }
 .p1 { color: #3498db; }

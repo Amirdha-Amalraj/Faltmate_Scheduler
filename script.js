@@ -15,13 +15,9 @@ function generate() {
     const calendar = document.getElementById("calendar");
     calendar.innerHTML = "";
 
-    let today = new Date();
-    document.getElementById("weekSelect").value = Math.floor(new Date().getDate() / 7) % 4;
-
     let weekOffset = parseInt(document.getElementById("weekSelect").value);
 
-    // Today highlight
-    let todayReal = today.getDay();
+    let todayReal = new Date().getDay();
     let todayIndex = (todayReal - 1 + 7) % 7;
     if (todayIndex > 5) todayIndex = -1;
 
@@ -52,23 +48,31 @@ function showDetails(day, people, tasks, weekOffset) {
     const n = people.length;
     let result = `<h2>${days[day]}</h2>`;
 
-    // 🔥 SHIFTED TASK ASSIGNMENT
+    // Task assignment (rotates weekly)
     for (let t = 0; t < tasks.length; t++) {
         let personIndex = (day + t + weekOffset) % n;
         result += `<p>${tasks[t]} → <span class="p${personIndex}">${people[personIndex]}</span></p>`;
     }
 
-    // 🔥 SHIFTED REST
+    // Rest
     let restIndex = (day + tasks.length + weekOffset) % n;
     result += `<p>Rest → <span class="p${restIndex}">${people[restIndex]}</span></p>`;
 
-    // ✅ Dust = Rest person
+    // ✅ Dust (separate fair rotation)
     if ((day + 1) % 2 === 0) {
-        result += `<p>🗑️ Dust → <span class="p${restIndex}">${people[restIndex]}</span></p>`;
+
+        let dustIndex = (Math.floor(day / 2) + weekOffset) % n;
+
+        result += `<p>🗑️ Dust → <span class="p${dustIndex}">${people[dustIndex]}</span></p>`;
     }
 
     document.getElementById("details").innerHTML = result;
 }
 
-// Load
-generate();
+// Set default week automatically
+window.onload = function () {
+    document.getElementById("weekSelect").value =
+        Math.floor(new Date().getDate() / 7) % 4;
+
+    generate();
+};

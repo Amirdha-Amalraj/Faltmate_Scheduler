@@ -16,9 +16,9 @@ function generate() {
     calendar.innerHTML = "";
 
     let today = new Date();
+    document.getElementById("weekSelect").value = Math.floor(new Date().getDate() / 7) % 4;
 
-    // 🔥 WEEK OFFSET (main fix)
-    let weekOffset = Math.floor(today.getDate() / 7) % n;
+    let weekOffset = parseInt(document.getElementById("weekSelect").value);
 
     // Today highlight
     let todayReal = today.getDay();

@@ -15,7 +15,15 @@
     <input id="p4" placeholder="Person 4">
     <button onclick="generate()">Update</button>
 </div>
-
+<div class="week-control">
+    <label>Select Week: </label>
+    <select id="weekSelect" onchange="generate()">
+        <option value="0">Week 1</option>
+        <option value="1">Week 2</option>
+        <option value="2">Week 3</option>
+        <option value="3">Week 4</option>
+    </select>
+</div>
 <div class="calendar" id="calendar"></div>
 
 <div id="details" class="details">
